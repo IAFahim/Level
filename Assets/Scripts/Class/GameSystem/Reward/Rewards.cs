@@ -14,16 +14,12 @@ namespace Class.GameSystem.Reward
             Type type = typeof(T);
             if (type.IsEnum)
             {
-                Array enumType = Enum.GetValues(typeof(T));
+                Array enumType = System.Enum.GetValues(typeof(T));
                 var enumSize = enumType.Length;
                 _rewards = new(enumSize);
                 for (int i = 0; i < enumSize; i++)
                 {
-                    _rewards.Add(new Reward<T, V>
-                    {
-                        type = (T)enumType.GetValue(i),
-                        value = default
-                    });
+                    _rewards.Add(new Reward<T, V>((T)enumType.GetValue(i), default, false));
                 }
             }
             else
@@ -55,7 +51,7 @@ namespace Class.GameSystem.Reward
             string result = "{";
             for (int i = 0; i < _rewards.Count; i++)
             {
-                result += $"\"{_rewards[i].type}\": \"{_rewards[i].value}\"";
+                result += $"\"{_rewards[i].stats}\": \"{_rewards[i].value}\"";
                 if (i < _rewards.Count - 1)
                 {
                     result += ", ";
