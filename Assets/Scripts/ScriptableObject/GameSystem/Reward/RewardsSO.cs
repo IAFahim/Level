@@ -8,12 +8,12 @@ namespace ScriptableObject.GameSystem.Reward
     [CreateAssetMenu(fileName = "MultipleRewards", menuName = "GameSystem/Rewards/Multiple", order = 1)]
     public class RewardsSO : UnityEngine.ScriptableObject
     {
-        public Rewards<RewardType, int> rewards;
+        public Rewards<StatsType, int> rewards;
 
         [Button]
-        public void Log(RewardType rewardType)
+        public void Log(StatsType statsType)
         {
-            Debug.Log(rewards.Get(rewardType).ToString());
+            Debug.Log(rewards.Get(statsType).GetReward());
         }
     }
 }

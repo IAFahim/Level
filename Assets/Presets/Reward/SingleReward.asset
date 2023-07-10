@@ -14,31 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reward:
     stats: 0
-    rewardType: 1
+    rewardType: 2
     reclaimable: 0
-    value: 85
-    min: -46
+    value: 100
+    min: 50
     max: 100
     animationCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.000012777746
-        inSlope: 1.0000128
-        outSlope: 1.0000128
+        value: 0
+        inSlope: 1
+        outSlope: 1
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.33333334
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1.0000128
-        outSlope: 1.0000128
+        inSlope: 1
+        outSlope: 1
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

@@ -19,7 +19,7 @@ namespace Class.GameSystem.Reward
                 _rewards = new(enumSize);
                 for (int i = 0; i < enumSize; i++)
                 {
-                    _rewards.Add(new Reward<T, V>((T)enumType.GetValue(i), default, false));
+                    _rewards.Add(new Reward<T, V>((T)enumType.GetValue(i), default));
                 }
             }
             else
@@ -38,7 +38,7 @@ namespace Class.GameSystem.Reward
         public void Set(object type, V value)
         {
             int index = (int)type;
-            if (index < _rewards.Count) _rewards[index].value = value;
+            if (index < _rewards.Count) _rewards[index].SetReward(value);
         }
 
         public int GetLength()
@@ -51,7 +51,7 @@ namespace Class.GameSystem.Reward
             string result = "{";
             for (int i = 0; i < _rewards.Count; i++)
             {
-                result += $"\"{_rewards[i].stats}\": \"{_rewards[i].value}\"";
+                result += $"\"{_rewards[i].stats}\": \"{_rewards[i]}\"";
                 if (i < _rewards.Count - 1)
                 {
                     result += ", ";

@@ -1,6 +1,6 @@
 ﻿namespace Enum.GameSystem.Reward
 {
-    public enum RewardStats
+    public enum StatsType
     {
         Gold = 0,
         Xp=1,

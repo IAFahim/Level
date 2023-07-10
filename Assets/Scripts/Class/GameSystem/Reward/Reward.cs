@@ -1,62 +1,65 @@
 ﻿using System;
-using TriInspector;
 using UnityEngine;
+using TriInspector;
 using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Reward
 {
     [DeclareHorizontalGroup("type")]
     [DeclareHorizontalGroup("vars")]
+    [DeclareHorizontalGroup("condition")]
     [Serializable]
-    public class Reward<T, V> where V : struct
+    public class Reward<T, TV>
     {
         [Group("type")] public T stats;
 
-        [FormerlySerializedAs("type")] [Group("type")]
-        public RewardType rewardType;
+        [Group("type")] public RewardType rewardType;
 
-        [Group("type")] public bool reclaimable;
+        public Func<TV, TV, TV> rewardFunction;
 
-        [Group("vars")] public V value;
-        [Group("vars")] public V min;
-        [Group("vars")] public V max;
+        public string title;
 
-        public Func<V, V, V> rewardFunction;
-        [FormerlySerializedAs("curve")] public AnimationCurve animationCurve;
+        [Multiline(3)] public string description;
 
-        public Reward(T stats, V value, bool reclaimable)
+        public TV value;
+
+        public AnimationCurve animationCurve;
+
+        [Group("vars")] public TV min;
+
+        [Group("vars")] public TV max;
+
+        [Group("condition")] public int claimCount;
+
+        [Group("condition")] public int maxClaimCount = 1;
+
+        public Reward(T stats, TV value)
         {
             this.stats = stats;
-            this.reclaimable = reclaimable;
             this.value = value;
             rewardType = RewardType.Min;
         }
 
-        public Reward(T stats, V min, V max, bool reclaimable, RewardType rewardType)
+        public Reward(T stats, TV min, TV max, RewardType rewardType)
         {
             this.stats = stats;
             this.rewardType = rewardType;
-            this.reclaimable = reclaimable;
             this.min = min;
             this.max = max;
         }
 
-
-        public Reward(T stats, V min, V max, bool reclaimable, AnimationCurve animationCurve)
+        public Reward(T stats, TV min, TV max, AnimationCurve animationCurve)
         {
             this.stats = stats;
-            this.reclaimable = reclaimable;
             this.min = min;
             this.max = max;
             this.animationCurve = animationCurve;
             rewardType = RewardType.RandomOnCurve;
         }
 
-        public Reward(T stats, V min, V max, bool reclaimable, Func<V, V, V> rewardFunction,
-            AnimationCurve animationCurve)
+        public Reward(T stats, TV min, TV max, Func<TV, TV, TV> rewardFunction, AnimationCurve animationCurve)
         {
             this.stats = stats;
-            this.reclaimable = reclaimable;
             this.min = min;
             this.max = max;
             rewardType = RewardType.Custom;
@@ -64,90 +67,163 @@ namespace Class.GameSystem.Reward
             this.animationCurve = animationCurve;
         }
 
-        public void SetRewardType(RewardType rewardType)
+        public void SetRewardType(RewardType type)
         {
-            this.rewardType = rewardType;
-            if (rewardType == RewardType.Random)
+            rewardType = type;
+            if (type == RewardType.Random)
             {
                 rewardFunction = RandomFunc;
             }
-            else if (rewardType == RewardType.RandomOnCurve)
+            else if (type == RewardType.RandomOnCurve)
             {
                 rewardFunction = RandomOnCurveFunc;
             }
-            else if (rewardType == RewardType.Min)
+            else if (type == RewardType.Min)
             {
                 rewardFunction = NoneFunc;
             }
-            else if (rewardType == RewardType.Custom)
-            {
-                rewardFunction = rewardFunction;
-            }
         }
 
-
-        public V GetReward()
-        {
-            SetRewardType(rewardType);
-            value =rewardFunction(min, max);
-            return value;
-        }
-
-        public void SetCustomRewardFunction(Func<V, V, V> rewardFunction)
+        public void SetCustomRewardFunction(Func<TV, TV, TV> rewardFunction)
         {
             rewardType = RewardType.Custom;
             this.rewardFunction = rewardFunction;
         }
 
-
-        public override string ToString()
+        public TV GetReward()
         {
-            return $"{{\"Type\":\"{rewardType}\", \"Value\":\"{value}\"}}";
+            SetRewardType(rewardType);
+            value = rewardFunction(min, max);
+            return value;
         }
 
-        public static V NoneFunc(V min, V max)
+        public void SetReward(TV value)
+        {
+            this.value = value;
+        }
+
+        public int GetClaimCount()
+        {
+            return claimCount;
+        }
+
+        public void SetClaimCount(int count)
+        {
+            claimCount = count;
+        }
+
+        public int GetMaxClaimCount()
+        {
+            return maxClaimCount;
+        }
+
+        public void SetMaxClaimCount(int count)
+        {
+            maxClaimCount = count;
+        }
+
+        public void Reset()
+        {
+            claimCount = 0;
+        }
+
+        public void IncrementClaimCount()
+        {
+            claimCount++;
+        }
+
+        public bool StillClaimable()
+        {
+            return claimCount < maxClaimCount;
+        }
+
+        public static implicit operator float(Reward<T, TV> reward)
+        {
+            return Convert.ToSingle(reward.value);
+        }
+
+        public static implicit operator int(Reward<T, TV> reward)
+        {
+            return Convert.ToInt32(reward.value);
+        }
+
+        public static implicit operator bool(Reward<T, TV> reward)
+        {
+            return reward.StillClaimable();
+        }
+
+
+        public TV NoneFunc(TV min, TV max)
         {
             return min;
         }
 
-        public V RandomFunc(V min, V max)
+        public TV RandomFunc(TV min, TV max)
         {
-            //Check if min max same with torlerance
-            if (min is int)
+            if (typeof(TV) == typeof(int))
             {
-                return (V)(object)UnityEngine.Random.Range((int)(object)min, (int)(object)max);
+                int minValue = Convert.ToInt32(min);
+                int maxValue = Convert.ToInt32(max);
+                int randomValue = UnityEngine.Random.Range(minValue, maxValue + 1);
+                return (TV)(object)randomValue;
             }
 
-            if (min is float)
+            if (typeof(TV) == typeof(float))
             {
-                return (V)(object)UnityEngine.Random.Range((float)(object)min, (float)(object)max);
+                float minValue = Convert.ToSingle(min);
+                float maxValue = Convert.ToSingle(max);
+                float randomValue = UnityEngine.Random.Range(minValue, maxValue);
+                return (TV)(object)randomValue;
             }
 
-            return min;
+            // For other types, generate a random value between 0 and 1
+            float randomFloat = UnityEngine.Random.value;
+            if (randomFloat < 0.5f)
+            {
+                return min;
+            }
+            else
+            {
+                return max;
+            }
         }
 
-        public V RandomOnCurveFunc(V min, V max)
+        public TV RandomOnCurveFunc(TV min, TV max)
         {
             float randomTime = UnityEngine.Random.value;
             float mappedTime = animationCurve.Evaluate(randomTime);
 
-            if (min is int)
+            if (typeof(TV) == typeof(int))
             {
-                int minValue = (int)(object)min;
-                int maxValue = (int)(object)max;
+                int minValue = Convert.ToInt32(min);
+                int maxValue = Convert.ToInt32(max);
                 int interpolatedValue = Mathf.RoundToInt(Mathf.Lerp(minValue, maxValue, mappedTime));
-                return (V)(object)interpolatedValue;
+                return (TV)(object)interpolatedValue;
             }
 
-            if (min is float)
+            if (typeof(TV) == typeof(float))
             {
-                float minValue = (float)(object)min;
-                float maxValue = (float)(object)max;
+                float minValue = Convert.ToSingle(min);
+                float maxValue = Convert.ToSingle(max);
                 float interpolatedValue = Mathf.Lerp(minValue, maxValue, mappedTime);
-                return (V)(object)interpolatedValue;
+                return (TV)(object)interpolatedValue;
             }
 
+            if (mappedTime > 0.5) return max;
             return min;
+        }
+
+        public override string ToString()
+        {
+            string rewardString = $"{{\"Type\":\"{rewardType}\", \"Value\":\"{value}\"";
+            rewardString += $", \"Stats\":\"{stats}\"";
+            rewardString += $", \"Min\":\"{min}\", \"Max\":\"{max}\"";
+            rewardString += $", \"ClaimCount\":\"{claimCount}\", \"MaxClaimCount\":\"{maxClaimCount}\"";
+            rewardString += $", \"Title\":\"{title}\"";
+            rewardString += $", \"Description\":\"{description}\"";
+            rewardString += "}";
+
+            return rewardString;
         }
     }
 }
