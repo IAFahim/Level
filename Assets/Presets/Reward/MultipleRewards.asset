@@ -14,9 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewards:
     _rewards:
-    - type: 0
+    - stats: 0
+      rewardType: 0
+      title: 
+      description: 
       value: 0
-    - type: 1
+      animationCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      min: 0
+      max: 0
+      claimCount: 0
+      maxClaimCount: 1
+    - stats: 1
+      rewardType: 0
+      title: 
+      description: 
       value: 0
-    - type: 2
+      animationCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      min: 0
+      max: 0
+      claimCount: 0
+      maxClaimCount: 1
+    - stats: 2
+      rewardType: 0
+      title: 
+      description: 
       value: 0
+      animationCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      min: 0
+      max: 0
+      claimCount: 0
+      maxClaimCount: 1

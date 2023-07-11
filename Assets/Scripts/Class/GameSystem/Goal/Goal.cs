@@ -1,18 +1,28 @@
 ﻿using System;
+using Class.GameSystem.Reward;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Goal
 {
     [Serializable]
     public class Goal<T, V> where T : class where V : struct
     {
-        public T entity;
+        public T type;
         public V have;
-        public V required;
+        public V requiredMin;
+        public V requiredMax;
 
-        public Goal(T entity, V required)
+        public Goal(T type, V requiredMin)
         {
-            this.entity = entity;
-            this.required = required;
+            this.type = type;
+            this.requiredMin = requiredMin;
+        }
+        
+        public Goal(T type, V requiredMin, V requiredMax)
+        {
+            this.type = type;
+            this.requiredMin = requiredMin;
+            this.requiredMax = requiredMax;
         }
 
         public void SetHave(V value)
@@ -22,12 +32,20 @@ namespace Class.GameSystem.Goal
         
         public void SetNeed(V value)
         {
-            required = value;
+            requiredMax = value;
         }
-        
+
+        public void CheckIfComplete()
+        {
+            if (have.Equals(requiredMax))
+            {
+                
+            }
+        }
+
         public override string ToString()
         {
-            return $"{{\"Entity\":\"{entity}\", \"Have\":\"{have}\", \"Required\":\"{required}\"}}";
+            return $"{type} have {have} with required {requiredMin} to {requiredMax}";
         }
         
     }

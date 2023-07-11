@@ -5,15 +5,18 @@ using UnityEngine;
 
 namespace ScriptableObject.GameSystem.Reward
 {
-    [CreateAssetMenu(fileName = "EnumReward", menuName = "GameSystem/Rewards/Single/EnumReward", order = 1)]
-    public class RewardSO : UnityEngine.ScriptableObject
+    [CreateAssetMenu(fileName = "RewardUnlockAble", menuName = "GameSystem/Rewards/Single/RewardUnlockAble", order = 1)]
+    public class RewardUnlockAble : UnityEngine.ScriptableObject
     {
-        public Reward<StatsType, int> reward;
+        public Reward<UnityEngine.ScriptableObject, UnityEngine.ScriptableObject> reward;
 
         [Button]
         public void Log()
         {
-            Debug.Log(reward.GenerateValueAndIncrementClaim());
+            if (reward.IsClaimable())
+            {
+                Debug.Log(reward.GenerateValueAndIncrementClaim());
+            }
         }
 
         [Button]

@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using TriInspector;
-using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Reward
 {
@@ -9,11 +8,11 @@ namespace Class.GameSystem.Reward
     [DeclareHorizontalGroup("vars")]
     [DeclareHorizontalGroup("condition")]
     [Serializable]
-    public class Reward<T, TV>
+    public class Reward<T, TV> : IReward<T, TV>
     {
-        [Group("type")] public T stats;
+        [Group("type")] public T type;
 
-        [Group("type")] public RewardType rewardType;
+        [Group("type")] public RewardType funcType;
 
         public Func<TV, TV, TV> rewardFunction;
 
@@ -21,7 +20,7 @@ namespace Class.GameSystem.Reward
 
         [Multiline(3)] public string description;
 
-        public TV value;
+        [SerializeField] private TV value;
 
         public AnimationCurve animationCurve;
 
@@ -33,43 +32,43 @@ namespace Class.GameSystem.Reward
 
         [Group("condition")] public int maxClaimCount = 1;
 
-        public Reward(T stats, TV value)
+        public Reward(T type, TV value)
         {
-            this.stats = stats;
+            this.type = type;
             this.value = value;
-            rewardType = RewardType.Min;
+            funcType = RewardType.Min;
         }
 
-        public Reward(T stats, TV min, TV max, RewardType rewardType)
+        public Reward(T type, TV min, TV max)
         {
-            this.stats = stats;
-            this.rewardType = rewardType;
+            this.type = type;
             this.min = min;
             this.max = max;
+            this.funcType = RewardType.Random;
         }
 
-        public Reward(T stats, TV min, TV max, AnimationCurve animationCurve)
+        public Reward(T type, TV min, TV max, AnimationCurve animationCurve)
         {
-            this.stats = stats;
+            this.type = type;
             this.min = min;
             this.max = max;
             this.animationCurve = animationCurve;
-            rewardType = RewardType.RandomOnCurve;
+            funcType = RewardType.RandomOnCurve;
         }
 
-        public Reward(T stats, TV min, TV max, Func<TV, TV, TV> rewardFunction, AnimationCurve animationCurve)
+        public Reward(T type, TV min, TV max, Func<TV, TV, TV> rewardFunction, AnimationCurve animationCurve)
         {
-            this.stats = stats;
+            this.type = type;
             this.min = min;
             this.max = max;
-            rewardType = RewardType.Custom;
             this.rewardFunction = rewardFunction;
             this.animationCurve = animationCurve;
+            funcType = RewardType.Custom;
         }
 
         public void SetRewardType(RewardType type)
         {
-            rewardType = type;
+            funcType = type;
             if (type == RewardType.Random)
             {
                 rewardFunction = RandomFunc;
@@ -86,15 +85,26 @@ namespace Class.GameSystem.Reward
 
         public void SetCustomRewardFunction(Func<TV, TV, TV> rewardFunction)
         {
-            rewardType = RewardType.Custom;
+            funcType = RewardType.Custom;
             this.rewardFunction = rewardFunction;
         }
 
-        public TV GetReward()
+        public TV GetOldReward()
         {
-            SetRewardType(rewardType);
+            return value;
+        }
+
+        private TV GenerateNewReward()
+        {
+            SetRewardType(funcType);
             value = rewardFunction(min, max);
             return value;
+        }
+
+        public TV GenerateValueAndIncrementClaim(bool increment = true)
+        {
+            if (increment) IncrementClaimCount();
+            return GenerateNewReward();
         }
 
         public void SetReward(TV value)
@@ -122,6 +132,16 @@ namespace Class.GameSystem.Reward
             maxClaimCount = count;
         }
 
+        public AnimationCurve GetAnimationCurve()
+        {
+            return animationCurve;
+        }
+
+        public void SetAnimationCurve(AnimationCurve curve)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Reset()
         {
             claimCount = 0;
@@ -132,24 +152,24 @@ namespace Class.GameSystem.Reward
             claimCount++;
         }
 
-        public bool StillClaimable()
+        public bool IsClaimable()
         {
             return claimCount < maxClaimCount;
         }
 
         public static implicit operator float(Reward<T, TV> reward)
         {
-            return Convert.ToSingle(reward.value);
+            return Convert.ToSingle(reward.GetOldReward());
         }
 
         public static implicit operator int(Reward<T, TV> reward)
         {
-            return Convert.ToInt32(reward.value);
+            return Convert.ToInt32(reward.GetOldReward());
         }
 
         public static implicit operator bool(Reward<T, TV> reward)
         {
-            return reward.StillClaimable();
+            return reward.IsClaimable();
         }
 
 
@@ -215,8 +235,8 @@ namespace Class.GameSystem.Reward
 
         public override string ToString()
         {
-            string rewardString = $"{{\"Type\":\"{rewardType}\", \"Value\":\"{value}\"";
-            rewardString += $", \"Stats\":\"{stats}\"";
+            string rewardString = $"{{\"Type\":\"{funcType}\", \"Value\":\"{value}\"";
+            rewardString += $", \"Stats\":\"{type}\"";
             rewardString += $", \"Min\":\"{min}\", \"Max\":\"{max}\"";
             rewardString += $", \"ClaimCount\":\"{claimCount}\", \"MaxClaimCount\":\"{maxClaimCount}\"";
             rewardString += $", \"Title\":\"{title}\"";
@@ -225,5 +245,6 @@ namespace Class.GameSystem.Reward
 
             return rewardString;
         }
+
     }
 }
