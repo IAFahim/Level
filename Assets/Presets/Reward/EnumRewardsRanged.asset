@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c67688ebac47929a826b6ad26c8c97, type: 3}
-  m_Name: MultipleRewards
+  m_Script: {fileID: 11500000, guid: 3795525af5e249a284bd49a91971cc5d, type: 3}
+  m_Name: EnumRewardsRanged
   m_EditorClassIdentifier: 
-  rewards:
+  _rewardsEnumRanged:
     _rewards:
-    - stats: 0
-      rewardType: 0
-      title: 
+    - title: 
       description: 
-      value: 0
+      oldValue: 0.54727775
+      type: 0
+      funcType: 1
       animationCurve:
         serializedVersion: 2
         m_Curve: []
@@ -26,14 +26,14 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       min: 0
-      max: 0
-      claimCount: 0
+      max: 1
+      claimCount: 1
       maxClaimCount: 1
-    - stats: 1
-      rewardType: 0
-      title: 
+    - title: 
       description: 
-      value: 0
+      oldValue: 0.7022648
+      type: 1
+      funcType: 1
       animationCurve:
         serializedVersion: 2
         m_Curve: []
@@ -41,21 +41,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       min: 0
-      max: 0
-      claimCount: 0
-      maxClaimCount: 1
-    - stats: 2
-      rewardType: 0
-      title: 
-      description: 
-      value: 0
-      animationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      min: 0
-      max: 0
-      claimCount: 0
+      max: 1
+      claimCount: 1
       maxClaimCount: 1

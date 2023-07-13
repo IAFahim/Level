@@ -5,11 +5,12 @@ using UnityEngine;
 namespace Class.GameSystem.Reward
 {
     [Serializable]
-    public class Rewards<T, TV> : IRewards<T, TV>
+    public class RewardsEnumRanged<T, TV> : IRewardsEnumRanged<T, TV>
+        where T : System.Enum where TV : struct, IComparable<TV>
     {
-        [SerializeField] private List<Reward<T, TV>> _rewards;
+        [SerializeField] private List<RewardEnumRanged<T, TV>> _rewards;
 
-        public Rewards()
+        public RewardsEnumRanged()
         {
             Type type = typeof(T);
             if (type.IsEnum)
@@ -19,7 +20,7 @@ namespace Class.GameSystem.Reward
                 _rewards = new(enumSize);
                 for (int i = 0; i < enumSize; i++)
                 {
-                    _rewards.Add(new Reward<T, TV>((T)enumType.GetValue(i), default));
+                    _rewards.Add(new RewardEnumRanged<T, TV>((T)enumType.GetValue(i), default));
                 }
             }
             else
@@ -28,11 +29,21 @@ namespace Class.GameSystem.Reward
             }
         }
 
-        public Reward<T, TV> Get(object type)
+        public RewardEnumRanged<T, TV> Get(object type)
         {
             int index = (int)type;
             if (index < _rewards.Count) return _rewards[index];
             return default;
+        }
+
+        public List<RewardEnumRanged<T, TV>> GenerateValueAndIncrementClaim(bool increment = true)
+        {
+            foreach (var r in _rewards)
+            {
+                if (r) r.GenerateValueAndIncrementClaim(increment);
+            }
+
+            return _rewards;
         }
 
         public void Set(object type, TV value)
@@ -44,6 +55,21 @@ namespace Class.GameSystem.Reward
         public int GetLength()
         {
             return _rewards.Count;
+        }
+
+        public static implicit operator int(RewardsEnumRanged<T, TV> v)
+        {
+            return v._rewards.Count;
+        }
+        
+        public static implicit operator bool(RewardsEnumRanged<T, TV> v)
+        {
+            foreach (var r in v._rewards)
+            {
+                if (r) return true;
+            }
+
+            return false;
         }
 
         public override string ToString()
