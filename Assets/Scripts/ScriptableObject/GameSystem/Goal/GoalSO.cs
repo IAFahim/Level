@@ -1,4 +1,5 @@
 ﻿using Class.GameSystem.Goal;
+using TriInspector;
 using UnityEngine;
 
 namespace ScriptableObject.GameSystem.Goal
@@ -8,9 +9,10 @@ namespace ScriptableObject.GameSystem.Goal
     {
         public Goal<GameObject, int> goal;
         
+        [Button]
         public void Log()
         {
-            Debug.Log(goal);
+            Debug.Log(goal.CheckIfCompletedInTime());
         }
         
     }

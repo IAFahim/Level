@@ -1,5 +1,4 @@
-﻿using System;
-using Class.GameSystem.Reward;
+﻿using Class.GameSystem.Reward;
 using TriInspector;
 using UnityEngine;
 
@@ -7,25 +6,26 @@ namespace ScriptableObject.GameSystem.Reward
 {
     [CreateAssetMenu(fileName = "EnumRewardRanged", menuName = "SO/EnumReward/EnumRewardRanged", order = 0)]
     public class EnumRewardSo : UnityEngine.ScriptableObject
-    {
-        public RewardEnumRanged<GameStats, int> _rewardEnumRanged;
+    { 
+        public RewardEnumRanged<GameStats, int> rewardList;
 
         [Button]
         private void Log()
         {
-            if (_rewardEnumRanged)
+            if (rewardList)
             {
-                var x = _rewardEnumRanged.GenerateValueAndIncrementClaim();
+                var x = rewardList.GetGeneratedValueAndIncrementClaim();
                 Debug.Log(x);
             }
         }
 
         private void OnValidate()
         {
-            if (_rewardEnumRanged.maxClaimCount == 0)
+            if (rewardList.MaxClaimCount == 0)
             {
-                _rewardEnumRanged.maxClaimCount = 1;
+                rewardList.MaxClaimCount = 1;
             }
         }
+        
     }
 }

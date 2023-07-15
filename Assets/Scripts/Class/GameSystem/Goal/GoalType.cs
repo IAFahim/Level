@@ -2,9 +2,8 @@
 {
     public enum GoalType
     {
-        TimeBased = 0,
-        TargetExact = 1,
-        TargetInRange = 2,
-        Custom = 3,
+        TargetExact = 0,
+        TargetInRange = 1,
+        Custom = 2,
     }
 }

@@ -3,21 +3,15 @@ using UnityEngine;
 
 namespace Class.GameSystem.Reward
 {
-    public interface IRewardEnumRanged<T, TV> : IRewardSystem<T, TV>
+    public interface IRewardEnumRanged<T, TV> : IReward<TV>
         where T : System.Enum where TV : struct, IComparable<TV>
     {
-        new TV GetOldReward();
-        new TV GenerateValueAndIncrementClaim(bool increment = true);
-        new void SetReward(TV value);
-        new int GetClaimCount();
-        new void SetClaimCount(int count);
-        new int GetMaxClaimCount();
-        new void SetMaxClaimCount(int count);
-        void SetRange(TV min, TV max);
-        new AnimationCurve GetAnimationCurve();
-        new void SetAnimationCurve(AnimationCurve curve);
-        new void Reset();
-        new void IncrementClaimCount();
-        new bool IsClaimable();
+        public T Type { get; set; }
+        
+        RewardFunctionType RewardFunctionType { get; set; }
+        
+        Func<TV, TV, TV, TV> CustomRewardFunction { get; set; }
+        AnimationCurve Curve { get; set; }
+        void SetRange(TV lowerBound, TV upperBound);
     }
 }

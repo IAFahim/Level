@@ -12,143 +12,116 @@ namespace Class.GameSystem.Reward
     public class RewardEnumRanged<T, TV> : IRewardEnumRanged<T, TV>
         where T : System.Enum where TV : struct, IComparable<TV>
     {
-        public string title;
+        [SerializeField] private string title;
 
-        [Multiline(3)] public string description;
+        [SerializeField] [Multiline(3)] private string description;
 
-        [SerializeField] private TV oldValue;
-        
-        [Group("type")] public T type;
+        [SerializeField] private TV currentValue;
 
-        [Group("type")] public RewardType funcType;
+        [SerializeField] [Group("type")] private T type;
 
-        public Func<TV, TV, TV, TV> rewardFunction;
+        [SerializeField] [Group("type")] private RewardFunctionType rewardFunctionType;
 
-        public AnimationCurve animationCurve;
+        private Func<TV, TV, TV, TV> _rewardFunction;
 
-        [Group("vars")] public TV min;
+        [Group("vars")] public TV lower;
 
-        [Group("vars")] public TV max;
+        [Group("vars")] public TV upper;
 
-        [Group("condition")] public int claimCount;
+        [SerializeField] [Group("condition")] private int claimCount;
 
-        [Group("condition")] public int maxClaimCount = 1;
+        [SerializeField] [Group("condition")] private int maxClaimCount = 1;
 
-        public RewardEnumRanged(T type, TV oldValue)
+        [SerializeField] private AnimationCurve curve;
+
+        public RewardEnumRanged(T type, TV value)
         {
             this.type = type;
-            this.oldValue = oldValue;
-            funcType = RewardType.Min;
+            currentValue = value;
         }
 
-        public RewardEnumRanged(T type, TV min, TV max)
-        {
-            this.type = type;
-            this.min = min;
-            this.max = max;
-            this.funcType = RewardType.Random;
-        }
-
-        public RewardEnumRanged(T type, TV min, TV max, AnimationCurve animationCurve)
-        {
-            this.type = type;
-            this.min = min;
-            this.max = max;
-            this.animationCurve = animationCurve;
-            funcType = RewardType.RandomOnCurve;
-        }
-
-        public RewardEnumRanged(T type, TV min, TV max, Func<TV, TV, TV, TV> rewardFunction,
+        public RewardEnumRanged(T type, TV lower, TV upper, Func<TV, TV, TV, TV> rewardFunction,
             AnimationCurve animationCurve)
         {
             this.type = type;
-            this.min = min;
-            this.max = max;
-            this.rewardFunction = rewardFunction;
-            this.animationCurve = animationCurve;
-            funcType = RewardType.Custom;
-        }
-
-        public void SetRewardType(RewardType rewardType)
-        {
-            funcType = rewardType;
-            if (rewardType == RewardType.Random)
+            this.lower = lower;
+            this.upper = upper;
+            if (rewardFunction != null)
             {
-                rewardFunction = RandomFunc;
+                RewardFunctionType = RewardFunctionType.Custom;
             }
-            else if (rewardType == RewardType.RandomOnCurve)
+
+            this.CustomRewardFunction = rewardFunction;
+            Curve = animationCurve;
+        }
+
+        public string Title
+        {
+            get => title;
+            set
             {
-                rewardFunction = RandomOnCurveFunc;
+                var trim = value.Trim();
+                if (trim.Length > 0)
+                {
+                    title = trim;
+                }
             }
-            else if (rewardType == RewardType.Min)
-            {
-                rewardFunction = NoneFunc;
-            }
         }
 
-        public void SetCustomRewardFunction(Func<TV, TV, TV, TV> rewardFunction)
+        public string Description
         {
-            funcType = RewardType.Custom;
-            this.rewardFunction = rewardFunction;
+            get => description;
+            set => description = value;
         }
 
-        public TV GetOldReward()
+        public TV CurrentValue
         {
-            return oldValue;
+            get => currentValue;
+            set => currentValue = value;
         }
 
-        private TV GenerateNewReward()
+        public int ClaimCount
         {
-            SetRewardType(funcType);
-            oldValue = rewardFunction(oldValue, min, max);
-            return oldValue;
+            get => claimCount;
+            set => claimCount = value;
         }
 
-        public TV GenerateValueAndIncrementClaim(bool increment = true)
+        public int MaxClaimCount
         {
-            if (increment) IncrementClaimCount();
-            return GenerateNewReward();
+            get => maxClaimCount;
+            set => maxClaimCount = value;
         }
 
-        public void SetReward(TV value)
+        public TV Lower
         {
-            this.oldValue = value;
+            get => lower;
+            set => lower = value;
         }
 
-        public int GetClaimCount()
+        public TV Upper
         {
-            return claimCount;
+            get => upper;
+            set => upper = value;
         }
 
-        public void SetClaimCount(int count)
+        public T Type { get; set; }
+
+        public RewardFunctionType RewardFunctionType
         {
-            claimCount = count;
+            get => rewardFunctionType;
+            set => rewardFunctionType = value;
         }
 
-        public int GetMaxClaimCount()
+        public AnimationCurve Curve
         {
-            return maxClaimCount;
+            get => curve;
+            set => curve = value;
         }
 
-        public void SetMaxClaimCount(int count)
+        public Func<TV, TV, TV, TV> CustomRewardFunction
         {
-            maxClaimCount = count;
-        }
-
-        public void SetRange(TV min, TV max)
-        {
-            this.min = min;
-            this.max = max;
-        }
-
-        public AnimationCurve GetAnimationCurve()
-        {
-            return animationCurve;
-        }
-
-        public void SetAnimationCurve(AnimationCurve curve)
-        {
-            animationCurve = curve;
+            get => _rewardFunction;
+            set => _rewardFunction = value;
         }
 
         public void Reset()
@@ -166,14 +139,64 @@ namespace Class.GameSystem.Reward
             return claimCount < maxClaimCount;
         }
 
+
+        public void SetToCustomRewardFunction()
+        {
+            RewardFunctionType = RewardFunctionType.Custom;
+        }
+
+        public void SetToCustomRewardFunction(Func<TV, TV, TV, TV> function)
+        {
+            RewardFunctionType = RewardFunctionType.Custom;
+            this.CustomRewardFunction = function;
+        }
+
+
+        public TV GenerateNewReward()
+        {
+            if (RewardFunctionType == RewardFunctionType.Min)
+            {
+                return MinFunc(currentValue, lower, upper);
+            }
+
+            if (RewardFunctionType == RewardFunctionType.Random)
+            {
+                return RandomFunc(currentValue, lower, upper);
+            }
+
+            if (RewardFunctionType == RewardFunctionType.RandomOnCurve)
+            {
+                return RandomOnCurveFunc(currentValue, lower, upper);
+            }
+
+            if (RewardFunctionType == RewardFunctionType.Custom)
+            {
+                return CustomRewardFunction(currentValue, lower, upper);
+            }
+
+            return default;
+        }
+
+        public TV GetGeneratedValueAndIncrementClaim(bool increment = true)
+        {
+            if (increment) IncrementClaimCount();
+            return GenerateNewReward();
+        }
+
+        public void SetRange(TV lowerBound, TV upperBound)
+        {
+            Lower = lowerBound;
+            Upper = upperBound;
+        }
+
         public static implicit operator float(RewardEnumRanged<T, TV> rewardEnumRanged)
         {
-            return Convert.ToSingle(rewardEnumRanged.GetOldReward());
+            return Convert.ToSingle(rewardEnumRanged.currentValue);
         }
 
         public static implicit operator int(RewardEnumRanged<T, TV> rewardEnumRanged)
         {
-            return Convert.ToInt32(rewardEnumRanged.GetOldReward());
+            return Convert.ToInt32(rewardEnumRanged.currentValue);
         }
 
         public static implicit operator bool(RewardEnumRanged<T, TV> rewardEnumRanged)
@@ -181,26 +204,25 @@ namespace Class.GameSystem.Reward
             return rewardEnumRanged.IsClaimable();
         }
 
-
-        public TV NoneFunc(TV value, TV min, TV max)
+        public TV MinFunc(TV value, TV lowerBound, TV upperBound)
         {
-            return min;
+            return lowerBound;
         }
 
-        public TV RandomFunc(TV value, TV min, TV max)
+        public TV RandomFunc(TV value, TV lowerBound, TV upperBound)
         {
             if (typeof(TV) == typeof(int))
             {
-                int minValue = Convert.ToInt32(min);
-                int maxValue = Convert.ToInt32(max);
+                int minValue = Convert.ToInt32(lowerBound);
+                int maxValue = Convert.ToInt32(upperBound);
                 int randomValue = UnityEngine.Random.Range(minValue, maxValue + 1);
                 return (TV)(object)randomValue;
             }
 
             if (typeof(TV) == typeof(float))
             {
-                float minValue = Convert.ToSingle(min);
-                float maxValue = Convert.ToSingle(max);
+                float minValue = Convert.ToSingle(lowerBound);
+                float maxValue = Convert.ToSingle(upperBound);
                 float randomValue = UnityEngine.Random.Range(minValue, maxValue);
                 return (TV)(object)randomValue;
             }
@@ -209,58 +231,50 @@ namespace Class.GameSystem.Reward
             float randomFloat = UnityEngine.Random.value;
             if (randomFloat < 0.5f)
             {
-                return min;
+                return lowerBound;
             }
             else
             {
-                return max;
+                return upperBound;
             }
         }
 
-        public TV RandomOnCurveFunc(TV value, TV min, TV max)
+        public TV RandomOnCurveFunc(TV value, TV lowerBound, TV upperBound)
         {
             float randomTime = UnityEngine.Random.value;
-            float mappedTime = animationCurve.Evaluate(randomTime);
+            float mappedTime = Curve.Evaluate(randomTime);
 
             if (typeof(TV) == typeof(int))
             {
-                int minValue = Convert.ToInt32(min);
-                int maxValue = Convert.ToInt32(max);
+                int minValue = Convert.ToInt32(lowerBound);
+                int maxValue = Convert.ToInt32(upperBound);
                 int interpolatedValue = Mathf.RoundToInt(Mathf.Lerp(minValue, maxValue, mappedTime));
                 return (TV)(object)interpolatedValue;
             }
 
             if (typeof(TV) == typeof(float))
             {
-                float minValue = Convert.ToSingle(min);
-                float maxValue = Convert.ToSingle(max);
+                float minValue = Convert.ToSingle(lowerBound);
+                float maxValue = Convert.ToSingle(upperBound);
                 float interpolatedValue = Mathf.Lerp(minValue, maxValue, mappedTime);
                 return (TV)(object)interpolatedValue;
             }
 
             if (typeof(List<>) == typeof(TV))
             {
-                List<TV> list = (List<TV>)(object)min;
+                List<TV> list = (List<TV>)(object)lowerBound;
                 int index = Mathf.RoundToInt(Mathf.Lerp(0, list.Count - 1, mappedTime));
                 return list[index];
             }
 
-            if (mappedTime > 0.5) return max;
-            return min;
+            if (mappedTime > 0.5) return upperBound;
+            return lowerBound;
         }
 
 
         public override string ToString()
         {
-            string rewardString = $"{{\"Type\":\"{funcType}\", \"Value\":\"{oldValue}\"";
-            rewardString += $", \"Stats\":\"{type}\"";
-            rewardString += $", \"Min\":\"{min}\", \"Max\":\"{max}\"";
-            rewardString += $", \"ClaimCount\":\"{claimCount}\", \"MaxClaimCount\":\"{maxClaimCount}\"";
-            rewardString += $", \"Title\":\"{title}\"";
-            rewardString += $", \"Description\":\"{description}\"";
-            rewardString += "}";
-
-            return rewardString;
+            return $"{type} {CurrentValue} {Lower} {Upper} {RewardFunctionType}";
         }
     }
 }

@@ -9,6 +9,13 @@
       },
       "hash": "a0c5ca50373530bec60d5e19cf88f5208bd66533"
     },
+    "com.matthewminer.consolation": {
+      "version": "https://github.com/mminer/consolation.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "905666d94f22bf9cedd895d46cb6e38b3edc34dd"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 1,
