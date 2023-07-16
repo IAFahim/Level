@@ -1,5 +1,6 @@
 ﻿using System;
 using TriInspector;
+using UnityEngine;
 
 namespace Class.GameSystem.Goal
 {
@@ -13,14 +14,17 @@ namespace Class.GameSystem.Goal
 
         public TO type;
         public GoalType goalCompareType;
+        
+        [Header("Value Range")]
         public TComparable current;
         [Group("vars")] public TComparable rangeMin;
         [Group("vars")] public TComparable rangeMax;
-
-        [Group("time")] public float time;
+        
+        [Header("Time Range")]
+        public float time;
         [Group("time")] public float startTime;
         [Group("time")] public float endTime;
-        public Func<TComparable, TComparable, TComparable, bool> CustomCheckFunction { get; set; }
+        public Func< IGoal<TO, TComparable>, bool> CustomCheckFunction  { get; set; }
 
         public TO Type
         {
@@ -75,7 +79,7 @@ namespace Class.GameSystem.Goal
         }
 
         public Goal(TO type, TComparable requiredMin, TComparable requiredMax, GoalType goalCompareType,
-            Func<TComparable, TComparable, TComparable, bool> checkFunction)
+            Func< IGoal<TO, TComparable>, bool> checkFunction )
         {
             Type = type;
             RequiredMin = requiredMin;
@@ -110,8 +114,7 @@ namespace Class.GameSystem.Goal
                 // Handle custom logic (if applicable)
                 // You can set a custom check function for this GoalType
                 // Placeholder; modify based on your custom logic
-                return CustomCheckFunction(current, rangeMin,
-                    rangeMax);
+                return CustomCheckFunction(this);
             return false;
         }
 

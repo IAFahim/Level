@@ -12,35 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3795525af5e249a284bd49a91971cc5d, type: 3}
   m_Name: EnumRewardsRanged
   m_EditorClassIdentifier: 
-  _rewardsEnumRanged:
-    _rewards:
+  rewardFullEnumRanged:
+    rewards:
     - title: 
       description: 
-      oldValue: 0.54727775
+      currentValue: 0
       type: 0
-      funcType: 1
-      animationCurve:
+      rewardFunctionType: 0
+      lower: 0
+      upper: 0
+      claimCount: 0
+      maxClaimCount: 1
+      curve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      min: 0
-      max: 1
-      claimCount: 1
-      maxClaimCount: 1
     - title: 
       description: 
-      oldValue: 0.7022648
+      currentValue: 0
       type: 1
-      funcType: 1
-      animationCurve:
+      rewardFunctionType: 0
+      lower: 0
+      upper: 0
+      claimCount: 0
+      maxClaimCount: 1
+      curve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      min: 0
-      max: 1
-      claimCount: 1
-      maxClaimCount: 1

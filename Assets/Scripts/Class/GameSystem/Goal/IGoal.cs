@@ -12,7 +12,7 @@ namespace Class.GameSystem.Goal
         TComparable Current { get; set; }
         TComparable RequiredMin { get; set; }
         TComparable RequiredMax { get; set; }
-        Func< TComparable, TComparable, TComparable, bool> CustomCheckFunction { get; set; }
+        Func< IGoal<TO, TComparable>, bool> CustomCheckFunction { get; set; }
         void SetCurrent(TComparable value);
         void SetRange(TComparable lower, TComparable upper);
         bool CheckIfComplete();

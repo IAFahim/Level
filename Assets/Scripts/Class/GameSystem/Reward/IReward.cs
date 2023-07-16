@@ -7,12 +7,15 @@ namespace Class.GameSystem.Reward
     {
         string Title { get; set; }
         string Description { get; set; }
-        TComparable CurrentValue { get; }
-        TComparable GetGeneratedValueAndIncrementClaim(bool increment = true);
+        TComparable ObjectCount { get; }
+        public void SetTypeAsKey();
         int ClaimCount { get; set; }
         int MaxClaimCount { get; set; }
-        void Reset();
         void IncrementClaimCount();
         bool IsClaimable();
+        string ToJson();
+        void Save();
+        void Load();
+        void Reset();
     }
 }

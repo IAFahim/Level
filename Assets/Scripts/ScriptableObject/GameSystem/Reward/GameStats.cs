@@ -2,6 +2,7 @@
 {
     public enum GameStats
     {
-        Gold,Xp
+        Gold = 0,
+        Xp = 1
     }
 }

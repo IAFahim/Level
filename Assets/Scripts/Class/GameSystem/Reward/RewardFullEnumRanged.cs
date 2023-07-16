@@ -41,7 +41,7 @@ namespace Class.GameSystem.Reward
         public void Set(object type, TV value)
         {
             int index = (int)type;
-            if (index < rewards.Count) rewards[index].CurrentValue = value;
+            if (index < rewards.Count) rewards[index].ObjectCount = value;
         }
 
         public int GetLength()
