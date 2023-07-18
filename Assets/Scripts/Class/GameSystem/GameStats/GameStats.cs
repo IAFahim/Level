@@ -1,4 +1,4 @@
-﻿namespace ScriptableObject.GameSystem.Reward
+﻿namespace Class.GameSystem.GameStats
 {
     public enum GameStats
     {

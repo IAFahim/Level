@@ -66,19 +66,13 @@ namespace Class.GameSystem.Reward
 
         public override string ToString()
         {
-            string result = "{";
-            for (int i = 0; i < rewards.Count; i++)
+            string s = "";
+            foreach (var r in rewards)
             {
-                result += $"\"{rewards[i].Type}\": \"{rewards[i]}\"";
-                if (i < rewards.Count - 1)
-                {
-                    result += ", ";
-                }
+                s += r.ToString() + "\n";
             }
 
-            result += "}";
-
-            return result;
+            return s;
         }
     }
 }

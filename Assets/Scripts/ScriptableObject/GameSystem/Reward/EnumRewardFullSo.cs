@@ -1,4 +1,5 @@
-﻿using Class.GameSystem.Reward;
+﻿using Class.GameSystem.GameStats;
+using Class.GameSystem.Reward;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,7 +9,7 @@ namespace ScriptableObject.GameSystem.Reward
     [CreateAssetMenu(fileName = "EnumRewardFull", menuName = "GameSystem/Reward/EnumRewardFull", order = 0)]
     public class EnumRewardFullSo : UnityEngine.ScriptableObject
     {
-        [FormerlySerializedAs("rewardsEnumRanged")] public RewardFullEnumRanged<GameStats, float> rewardFullEnumRanged;
+        public RewardFullEnumRanged<GameStats, float> rewardFullEnumRanged;
 
         [Button]
         public void Log()

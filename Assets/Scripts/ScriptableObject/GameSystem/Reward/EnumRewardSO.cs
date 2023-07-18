@@ -1,5 +1,5 @@
-﻿using Class.GameSystem.Reward;
-using TriInspector;
+﻿using Class.GameSystem.GameStats;
+using Class.GameSystem.Reward;
 using UnityEngine;
 
 namespace ScriptableObject.GameSystem.Reward
@@ -9,30 +9,12 @@ namespace ScriptableObject.GameSystem.Reward
     { 
         public RewardEnumRanged<GameStats, int> rewardList;
 
-        [Button]
-        private void Log()
-        {
-            Debug.Log(rewardList.ToString());
-        }
-
         private void OnValidate()
         {
             if (rewardList.MaxClaimCount == 0)
             {
                 rewardList.MaxClaimCount = 1;
             }
-        }
-
-        [Button]
-        public void Save()
-        {
-            rewardList.Save();
-        }
-        
-        [Button]
-        public void Load()
-        {
-            rewardList.Load();
         }
     }
 }

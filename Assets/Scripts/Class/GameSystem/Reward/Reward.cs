@@ -1,12 +1,11 @@
 ﻿using System;
 using TriInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Reward
 {
-    [DeclareHorizontalGroup("type")]
-    [DeclareHorizontalGroup("condition")]
+    [DeclareHorizontalGroup("claim")]
+    [DeclareHorizontalGroup("buttons")]
     [Serializable]
     public class Reward<T, TComparable> : IReward<TComparable> where TComparable : struct, IComparable<TComparable>
     {
@@ -15,15 +14,15 @@ namespace Class.GameSystem.Reward
         [SerializeField] [Multiline(3)] protected string description;
 
         [SerializeField] protected TComparable objectCount;
-        
-        [OnValueChanged(nameof(SetTypeAsKey))]
-        [SerializeField] [Group("type")] protected T type;
 
-        [SerializeField] [Group("condition")] protected int claimCount;
+        [OnValueChanged(nameof(SetTypeAsKey))] [SerializeField]
+        protected T type;
 
-        [SerializeField] [Group("condition")] protected int maxClaimCount;
+        [SerializeField] [Group("claim")] protected int claimCount;
 
-        public Reward(T type, TComparable count , int maxClaimCount = 1)
+        [SerializeField] [Group("claim")] protected int maxClaimCount;
+
+        public Reward(T type, TComparable count, int maxClaimCount = 1)
         {
             this.type = type;
             objectCount = count;
@@ -93,17 +92,20 @@ namespace Class.GameSystem.Reward
             return JsonUtility.ToJson(this);
         }
 
-        public void Save()
+        [Group("buttons")][Button]
+        public void SaveFull()
         {
             PlayerPrefs.SetString(title, ToJson());
         }
 
+        [Group("buttons")][Button]
         public void Load()
         {
             var str = PlayerPrefs.GetString(title);
             JsonUtility.FromJsonOverwrite(str, this);
         }
 
+        [Group("buttons")][Button]
         public void Reset()
         {
             objectCount = default;

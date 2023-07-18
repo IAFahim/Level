@@ -1,8 +1,9 @@
 ﻿using System;
+using Class.GameSystem.SaveAble;
 
 namespace Class.GameSystem.Reward
 {
-    public interface IReward<out TComparable>
+    public interface IReward<out TComparable>: ISaveAble
         where TComparable : struct, IComparable<TComparable>
     {
         string Title { get; set; }
@@ -13,9 +14,5 @@ namespace Class.GameSystem.Reward
         int MaxClaimCount { get; set; }
         void IncrementClaimCount();
         bool IsClaimable();
-        string ToJson();
-        void Save();
-        void Load();
-        void Reset();
     }
 }
