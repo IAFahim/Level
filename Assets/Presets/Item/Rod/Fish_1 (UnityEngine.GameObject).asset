@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
     itemType: 0
-    name: Fish_2 (UnityEngine.GameObject)
-    itemObject: {fileID: 4560387211319086366, guid: bc4c399c824d585478e255756f5fb618, type: 3}
+    name: Fish_1 (UnityEngine.GameObject)
+    itemObject: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
     equipLimitation: 0
     isUnlocked: 0
     isEquipped: 0
