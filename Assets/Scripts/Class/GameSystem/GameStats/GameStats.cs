@@ -3,6 +3,6 @@
     public enum GameStats
     {
         Gold = 0,
-        Xp = 1
+        Luck = 1
     }
 }

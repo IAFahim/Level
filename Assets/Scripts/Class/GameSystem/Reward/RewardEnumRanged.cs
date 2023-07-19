@@ -12,16 +12,18 @@ namespace Class.GameSystem.Reward
     public class RewardEnumRanged<T, TComparable> : Reward<T, TComparable>, IRewardEnumRanged<T, TComparable>
         where T : System.Enum where TComparable : struct, IComparable<TComparable>
     {
-        [SerializeField] [Group("type")] private RewardFunctionType rewardFunctionType;
+        [SerializeField] [Group("tabs"), Tab("Range")] private RewardFunctionType rewardFunctionType;
 
         private Func<IRewardEnumRanged<T, TComparable>, TComparable> _rewardFunction;
 
-        
-        [Group("limit")] public TComparable lower;
+        [SerializeField] [Group("tabs"), Tab("Range")]
+        public TComparable lower;
 
-        [Group("limit")] public TComparable upper;
-        
-        [SerializeField] private AnimationCurve curve;
+        [Group("tabs"), Tab("Range")] public TComparable upper;
+
+        [Group("tabs"), Tab("Range")] [SerializeField]
+        private AnimationCurve curve;
+
         public RewardEnumRanged(T type, TComparable count, int maxClaimCount = 1) : base(type, count, maxClaimCount)
         {
         }
@@ -40,7 +42,7 @@ namespace Class.GameSystem.Reward
             this.CustomRewardFunction = rewardFunction;
             Curve = animationCurve;
         }
-        
+
 
         public TComparable Lower
         {
@@ -71,7 +73,7 @@ namespace Class.GameSystem.Reward
             get => _rewardFunction;
             set => _rewardFunction = value;
         }
-        
+
         public void SetToCustomRewardFunction()
         {
             RewardFunctionType = RewardFunctionType.Custom;

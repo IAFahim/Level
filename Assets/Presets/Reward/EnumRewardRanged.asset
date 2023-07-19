@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: EnumRewardRanged
   m_EditorClassIdentifier: 
   rewardList:
-    title: Gold
+    key: Luck
+    name: 
     description: 
     objectCount: 0
-    type: 0
-    claimCount: 1
+    type: 1
+    claimCount: 0
     maxClaimCount: 1
     rewardFunctionType: 2
-    lower: 0
+    lower: 50
     upper: 100
     curve:
       serializedVersion: 2

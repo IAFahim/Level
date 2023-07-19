@@ -6,21 +6,30 @@ namespace Class.GameSystem.Reward
 {
     [DeclareHorizontalGroup("claim")]
     [DeclareHorizontalGroup("buttons")]
+    [DeclareTabGroup("tabs")]
     [Serializable]
     public class Reward<T, TComparable> : IReward<TComparable> where TComparable : struct, IComparable<TComparable>
     {
-        [SerializeField] protected string title;
+        [SerializeField] [Group("tabs"), Tab("Info")] [DisableInEditMode]
+        protected string key;
 
-        [SerializeField] [Multiline(3)] protected string description;
+        [SerializeField] [Group("tabs"), Tab("Info")]
+        protected string name;
 
-        [SerializeField] protected TComparable objectCount;
+        [SerializeField] [Group("tabs"), Tab("Info")] [Multiline(3)]
+        protected string description;
 
-        [OnValueChanged(nameof(SetTypeAsKey))] [SerializeField]
+        [SerializeField] [Group("tabs"), Tab("Info")]
+        protected TComparable objectCount;
+
+        [OnValueChanged(nameof(SetTypeAsKey))] [SerializeField] [Group("tabs"), Tab("Info")]
         protected T type;
 
-        [SerializeField] [Group("claim")] protected int claimCount;
+        [SerializeField] [Group("tabs"), Tab("Claim")]
+        protected int claimCount;
 
-        [SerializeField] [Group("claim")] protected int maxClaimCount;
+        [SerializeField] [Group("tabs"), Tab("Claim")]
+        protected int maxClaimCount;
 
         public Reward(T type, TComparable count, int maxClaimCount = 1)
         {
@@ -29,17 +38,23 @@ namespace Class.GameSystem.Reward
             this.maxClaimCount = maxClaimCount;
         }
 
-        public string Title
+        public string Key
         {
-            get => title;
+            get => key;
             set
             {
                 var trim = value.Trim();
                 if (trim.Length > 0)
                 {
-                    title = trim;
+                    key = trim;
                 }
             }
+        }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
         }
 
         public string Description
@@ -56,7 +71,7 @@ namespace Class.GameSystem.Reward
 
         public void SetTypeAsKey()
         {
-            title = type.ToString();
+            key = type.ToString();
         }
 
         public T Type
@@ -92,25 +107,28 @@ namespace Class.GameSystem.Reward
             return JsonUtility.ToJson(this);
         }
 
-        [Group("buttons")][Button]
+        [Group("buttons")]
+        [Button]
         public void SaveFull()
         {
-            PlayerPrefs.SetString(title, ToJson());
+            PlayerPrefs.SetString(key, ToJson());
         }
 
-        [Group("buttons")][Button]
+        [Group("buttons")]
+        [Button]
         public void Load()
         {
-            var str = PlayerPrefs.GetString(title);
+            var str = PlayerPrefs.GetString(key);
             JsonUtility.FromJsonOverwrite(str, this);
         }
 
-        [Group("buttons")][Button]
+        [Group("buttons")]
+        [Button]
         public void Reset()
         {
             objectCount = default;
             claimCount = 0;
-            PlayerPrefs.SetString(title, "");
+            PlayerPrefs.SetString(key, "");
         }
     }
 }

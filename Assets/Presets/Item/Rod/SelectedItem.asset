@@ -12,8 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c9139e227442dbb851f35a7c2d52b4, type: 3}
   m_Name: SelectedItem
   m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 11400000, guid: 85cfef2ff8c430f4a91ed108b294221d, type: 2}
-  - {fileID: 11400000, guid: 3a7af9e462e814b4d9a7dcf3b3473dca, type: 2}
-  selectedItem: {fileID: 11400000, guid: 3a7af9e462e814b4d9a7dcf3b3473dca, type: 2}
   index: 1
+  selectedItem:
+    itemType: 0
+    gameObject: {fileID: 0}
+    textInfo:
+      key: 
+      name: 
+      description: 
+    lockItem:
+      icon: {fileID: 0}
+      isLocked: 0
+      isCurrent: 0
+      price: 0
+  itemList:
+  - itemType: 0
+    gameObject: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
+    textInfo:
+      key: Fish_1 (UnityEngine.GameObject)
+      name: A Bad Rod
+      description: 
+    lockItem:
+      icon: {fileID: 21300000, guid: 17b2d7d77a7558047946f327e6e02bb5, type: 3}
+      isLocked: 0
+      isCurrent: 0
+      price: 0
+  - itemType: 0
+    gameObject: {fileID: 0}
+    textInfo:
+      key: 
+      name: 
+      description: 
+    lockItem:
+      icon: {fileID: 0}
+      isLocked: 0
+      isCurrent: 0
+      price: 0
