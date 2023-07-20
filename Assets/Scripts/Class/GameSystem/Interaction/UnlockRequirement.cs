@@ -1,30 +1,20 @@
 ﻿using System;
-using Class.GameSystem.Info;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Interaction
 {
     [Serializable]
-    public class LockItem<T> : ILockAble<T>
+    public class UnlockRequirement<T> : ILockAble<T>
     {
-
-        [SerializeField]
-        protected Sprite icon;
-
         [SerializeField]
         protected bool isLocked;
 
-        [SerializeField]
-        protected bool isCurrent;
+        [FormerlySerializedAs("isEquiped")] [FormerlySerializedAs("isEqupied")] [FormerlySerializedAs("isCurrent")] [SerializeField]
+        protected bool isEquipped;
 
         [SerializeField]
-        protected T price; 
-
-        public Sprite Icon
-        {
-            get => icon;
-            set => icon = value;
-        }
+        protected T price;
 
         public bool IsLocked
         {
@@ -32,10 +22,10 @@ namespace Class.GameSystem.Interaction
             set => isLocked = value;
         }
 
-        public bool IsCurrent
+        public bool IsEquipped
         {
-            get => isCurrent;
-            set => isCurrent = value;
+            get => isEquipped;
+            set => isEquipped = value;
         }
 
         public T Price

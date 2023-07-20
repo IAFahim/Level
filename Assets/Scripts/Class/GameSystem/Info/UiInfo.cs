@@ -1,16 +1,14 @@
 ﻿using System;
-using TriInspector;
 using UnityEngine;
 
 namespace Class.GameSystem.Info
 {
     [Serializable]
-    public class TextInfo : ITextInfo
+    public class UiInfo : IUiInfo
     {
-        [SerializeField][DisableInEditMode]  protected string key;
-        [SerializeField]  protected string name;
+        [SerializeField] protected string name;
         [SerializeField] [Multiline(3)] protected string description;
-        
+        [SerializeField] protected Sprite icon;
 
         public string Name
         {
@@ -22,6 +20,12 @@ namespace Class.GameSystem.Info
         {
             get => description;
             set => description = value;
+        }
+
+        public Sprite Icon
+        {
+            get => icon;
+            set => icon = value;
         }
     }
 }

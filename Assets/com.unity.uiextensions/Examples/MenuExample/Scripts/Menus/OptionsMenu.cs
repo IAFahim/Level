@@ -1,6 +1,6 @@
 ﻿namespace UnityEngine.UI.Extensions.Examples
 {
-    public class OptionsMenu : SimpleMenu<OptionsMenu>
+    public class  OptionsMenu : SimpleMenu<OptionsMenu>
     {
         public Slider Slider;
 

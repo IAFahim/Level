@@ -38,19 +38,6 @@ namespace Class.GameSystem.Reward
             this.maxClaimCount = maxClaimCount;
         }
 
-        public string Key
-        {
-            get => key;
-            set
-            {
-                var trim = value.Trim();
-                if (trim.Length > 0)
-                {
-                    key = trim;
-                }
-            }
-        }
-
         public string Name
         {
             get => name;

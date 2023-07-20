@@ -1,7 +1,8 @@
 {
     "name": "UnityUIExtensions.examples",
     "references": [
-        "GUID:cf414061cae3a954baf92763590f3127"
+        "GUID:cf414061cae3a954baf92763590f3127",
+        "GUID:b3c74edd923d44a43a4b9517a53af60b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

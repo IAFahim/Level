@@ -8,11 +8,5 @@ namespace ScriptableObject.GameSystem.Item
     public class ItemSO : UnityEngine.ScriptableObject
     {
         public Item<ItemClassEnum, GameObject> item;
-        [Button]
-        public void Log()
-        {
-            Debug.Log(item.ToJson());
-        }
-        
     }
 }
