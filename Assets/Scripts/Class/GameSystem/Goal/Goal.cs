@@ -14,17 +14,17 @@ namespace Class.GameSystem.Goal
 
         public TO type;
         public GoalType goalCompareType;
-        
-        [Header("Value Range")]
-        public TComparable current;
-        [Group("vars")] public TComparable rangeMin;
-        [Group("vars")] public TComparable rangeMax;
-        
-        [Header("Time Range")]
-        public float time;
-        [Group("time")] public float startTime;
-        [Group("time")] public float endTime;
-        public Func< IGoal<TO, TComparable>, bool> CustomCheckFunction  { get; set; }
+
+        [Header("Value Range")] [SerializeField]
+        private TComparable current;
+
+        [Group("vars")] [SerializeField] private TComparable rangeMin;
+        [Group("vars")] [SerializeField] private TComparable rangeMax;
+
+        [Header("Time Range")] [SerializeField] private float time;
+        [Group("time")] [SerializeField] private float startTime;
+        [Group("time")] [SerializeField] private float endTime;
+        public Func<IGoal<TO, TComparable>, bool> CustomCheckFunction { get; set; }
 
         public TO Type
         {
@@ -79,7 +79,7 @@ namespace Class.GameSystem.Goal
         }
 
         public Goal(TO type, TComparable requiredMin, TComparable requiredMax, GoalType goalCompareType,
-            Func< IGoal<TO, TComparable>, bool> checkFunction )
+            Func<IGoal<TO, TComparable>, bool> checkFunction)
         {
             Type = type;
             RequiredMin = requiredMin;

@@ -5,14 +5,14 @@ using UnityEngine;
 namespace Class.GameSystem.Interaction
 {
     [Serializable]
-    class Range<T, TComparable> : IRange<T, TComparable> where TComparable : struct, IComparable<TComparable>
+    class RangeCurveFunction<T, TComparable> : IRangeCurveFunction<T, TComparable> where TComparable : struct, IComparable<TComparable>
     {
         protected RewardFunctionType RewardRewardFunctionType;
         protected TComparable lower;
         protected TComparable upper;
         protected Func<T, TComparable> customRewardFunction;
         
-        public Range(TComparable lower, TComparable upper, Func<T, TComparable> customRewardFunction, AnimationCurve curve)
+        public RangeCurveFunction(TComparable lower, TComparable upper, Func<T, TComparable> customRewardFunction, AnimationCurve curve)
         {
             this.Lower = lower;
             this.Upper = upper;

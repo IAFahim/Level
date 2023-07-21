@@ -21,3 +21,21 @@ MonoBehaviour:
     time: 5
     startTime: 0
     endTime: 60
+  satisfies:
+    condition: 1
+    currentValue: 0.49
+    minValue: 2.42
+    maxValue: -1.22
+    isSatisfied: 1
+    onSatisfied:
+      m_PersistentCalls:
+        m_Calls: []
+    onUnSatisfied:
+      m_PersistentCalls:
+        m_Calls: []
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onConditionTypeChanged:
+      m_PersistentCalls:
+        m_Calls: []
