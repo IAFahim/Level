@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Class.GameSystem.Item;
-using Class.GameSystem.SaveAble;
+using Class.GameSystem.State;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -106,7 +106,14 @@ namespace ScriptableObject.GameSystem.Item
         {
             PlayerPrefs.SetString(name, "");
             index = 0;
-            SelectedItem = itemList[index];
+            if (itemList.Count > 0)
+            {
+                SelectedItem = itemList[index];
+            }
+            else
+            {
+                selectedItem = null;
+            }
         }
     }
 }

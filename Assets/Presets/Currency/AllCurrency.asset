@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6acc44c2a471aaee5854a776d353b, type: 3}
+  m_Name: AllCurrency
+  m_EditorClassIdentifier: 
+  allInGameCurrency:
+    rewards:
+    - key: 
+      name: 
+      description: 
+      objectCount: 0
+      type: 0
+      claimCount: 0
+      maxClaimCount: 1
+      rewardFunctionType: 0
+      lower: 0
+      upper: 0
+      curve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4

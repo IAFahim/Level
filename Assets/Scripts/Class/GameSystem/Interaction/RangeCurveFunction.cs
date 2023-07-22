@@ -1,5 +1,5 @@
 ﻿using System;
-using Class.GameSystem.Reward;
+using Class.GameSystem.RewardCurrency;
 using UnityEngine;
 
 namespace Class.GameSystem.Interaction

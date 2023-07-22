@@ -1,5 +1,5 @@
 ﻿using System;
-using Class.GameSystem.Reward;
+using Class.GameSystem.RewardCurrency;
 using UnityEngine;
 
 namespace Class.GameSystem.Interaction
@@ -10,4 +10,5 @@ namespace Class.GameSystem.Interaction
         Func<T, TComparable> CustomRewardFunction { get; set; }
         AnimationCurve Curve { get; set; }
     }
+    
 }

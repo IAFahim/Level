@@ -10,7 +10,9 @@ namespace Class.GameSystem.Info
         [SerializeField][DisableInEditMode]  protected string key;
         [SerializeField]  protected string name;
         [SerializeField] [Multiline(3)] protected string description;
-        
+
+
+        public string Key => key;
 
         public string Name
         {
