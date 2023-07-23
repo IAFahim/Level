@@ -1,6 +1,5 @@
 ﻿using System;
 using Class.GameSystem.Satisfiable;
-using PlasticGui.Help;
 using TriInspector;
 
 namespace Class.GameSystem.Goal
@@ -11,7 +10,7 @@ namespace Class.GameSystem.Goal
     public class Goal<TO>
     {
         public VariableCondition<TO> condition;
-        
+        public Reward.Reward<float> reward;
 
     }
 }

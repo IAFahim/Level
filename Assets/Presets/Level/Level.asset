@@ -13,18 +13,25 @@ MonoBehaviour:
   m_Name: Level
   m_EditorClassIdentifier: 
   goal:
-    type: {fileID: 0}
-    goalCompareType: 1
-    current: 0
-    rangeMin: 5
-    rangeMax: 1000000
-    time: 0
-    startTime: 0
-    endTime: 0
-  reward:
-    title: 
-    description: 
-    objectCount: 0
-    type: {fileID: 0}
-    claimCount: 0
-    maxClaimCount: 0
+    condition:
+      conditionCheckEnumType: 0
+      targetType: {fileID: 0}
+      currentValue: 0
+      minValue: 0
+      maxValue: 0
+      isSatisfied: 0
+      onSatisfied:
+        m_PersistentCalls:
+          m_Calls: []
+      onUnSatisfied:
+        m_PersistentCalls:
+          m_Calls: []
+      onTargetChanged:
+        m_PersistentCalls:
+          m_Calls: []
+      onValueChanged:
+        m_PersistentCalls:
+          m_Calls: []
+      onConditionTypeChanged:
+        m_PersistentCalls:
+          m_Calls: []

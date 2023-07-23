@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5307c1170f4422d98fa0e099555b7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemCollectionSo: {fileID: 11400000, guid: 8bc2539b35abe064a9b41bec7333bb28, type: 2}
+  levelSelection: {fileID: 11400000, guid: 9ba7e9f2537c1944295c5fd9440d1bec, type: 2}
   rodIcon: {fileID: 501841363}
   textMeshPro: {fileID: 1175864716}
 --- !u!1001 &5207532327894929456

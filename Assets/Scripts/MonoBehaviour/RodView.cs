@@ -1,5 +1,6 @@
-﻿using Class.GameSystem.Item;
-using ScriptableObject.GameSystem.Item;
+﻿using Class.GameSystem.Currency;
+using Class.GameSystem.Item;
+using ScriptableObject.GameSystem.Selection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,26 +9,26 @@ namespace MonoBehaviour
 {
     public class RodView : UnityEngine.MonoBehaviour
     {
-        public ItemCollectionSo itemCollectionSo;
+        public UniqueSelectionSo levelSelection;
         public Image rodIcon;
         public TextMeshProUGUI textMeshPro;
 
         private void Start()
         {
-            OnItemChanged(itemCollectionSo.SelectedItem);
+            OnItemChanged(levelSelection.data.Current);
         }
 
         private void OnEnable()
         {
-            itemCollectionSo.onItemChanged.AddListener(OnItemChanged);
+            levelSelection.data.onCurrentChanged.AddListener(OnItemChanged);
         }
 
         private void OnDisable()
         {
-            itemCollectionSo.onItemChanged.RemoveListener(OnItemChanged);
+            levelSelection.data.onCurrentChanged.RemoveListener(OnItemChanged);
         }
 
-        private void OnItemChanged(Item<ItemClassEnum, GameObject> item)
+        private void OnItemChanged(Item<GameCurrencyEnum, GameObject> item)
         {
             textMeshPro.text = item.uiInfo.Name;
             rodIcon.sprite = item.uiInfo.Icon;

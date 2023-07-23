@@ -12,21 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e6acc44c2a471aaee5854a776d353b, type: 3}
   m_Name: AllCurrency
   m_EditorClassIdentifier: 
-  allInGameCurrency:
-    rewards:
-    - key: 
-      name: 
-      description: 
-      objectCount: 0
-      type: 0
-      claimCount: 0
-      maxClaimCount: 1
-      rewardFunctionType: 0
-      lower: 0
-      upper: 0
-      curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
+  currency:
+    key: Gold
+    name: 
+    description: 
+    icon: {fileID: 0}
+    target: 0
+    count: 0
+  currencyGenerator:
+    target: 0
+    count: 76.22628
+    lower: 0
+    upper: 100
+    rewardFunctionType: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4

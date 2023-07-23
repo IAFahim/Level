@@ -3,7 +3,7 @@
 namespace Class.GameSystem.Interaction
 {
     [Serializable]
-    class ClaimAble : IClaimAble
+    public class ClaimAble : IClaimAble
     {
         public int claimCount;
         public int maxClaimCount;
