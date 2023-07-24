@@ -7,13 +7,16 @@ namespace Class.GameSystem.Info
     [Serializable]
     public class TextInfo : ITextInfo
     {
-        [SerializeField][DisableInEditMode]  protected string key;
-        [SerializeField]  protected string name;
+        [SerializeField] [DisableInEditMode] protected string key;
+        [SerializeField] protected string name;
         [SerializeField] [Multiline(3)] protected string description;
 
-
-        public string Key => key;
-
+        public string Key
+        {
+            get => key;
+            set => key = value;
+        }
+        
         public string Name
         {
             get => name;
@@ -25,5 +28,7 @@ namespace Class.GameSystem.Info
             get => description;
             set => description = value;
         }
+
+        
     }
 }

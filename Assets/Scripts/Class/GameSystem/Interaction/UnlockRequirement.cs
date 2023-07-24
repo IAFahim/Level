@@ -10,22 +10,13 @@ namespace Class.GameSystem.Interaction
         [SerializeField]
         protected bool isLocked;
 
-        [FormerlySerializedAs("isEquiped")] [FormerlySerializedAs("isEqupied")] [FormerlySerializedAs("isCurrent")] [SerializeField]
-        protected bool isEquipped;
-
         [SerializeField]
         protected T price;
-
+        
         public bool IsLocked
         {
             get => isLocked;
             set => isLocked = value;
-        }
-
-        public bool IsEquipped
-        {
-            get => isEquipped;
-            set => isEquipped = value;
         }
 
         public T Price

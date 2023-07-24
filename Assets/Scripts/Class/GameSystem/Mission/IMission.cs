@@ -1,6 +1,4 @@
-﻿using Class.GameSystem.Goal;
-
-namespace Class.GameSystem.Mission
+﻿namespace Class.GameSystem.Mission
 {
     public interface IMission
     {

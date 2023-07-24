@@ -1,13 +1,13 @@
-﻿using Class.GameSystem.Goal;
+﻿using Class.GameSystem.Objective;
 using UnityEngine;
 
 namespace Class.GameSystem.Mission
 {
     public class Mission
     {
-        public Goal<GameObject> mainGoal;
-        public Goal<GameObject> optionalGoal;
-        public bool IsComplete => mainGoal.condition.CheckIf() && optionalGoal.condition.CheckIf();
+        public Objective<GameObject> MainObjective;
+        public Objective<GameObject> OptionalObjective;
+        public bool IsComplete => MainObjective.condition.CheckIf() && OptionalObjective.condition.CheckIf();
         
     }
 }

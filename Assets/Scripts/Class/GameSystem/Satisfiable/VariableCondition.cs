@@ -2,6 +2,7 @@
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Satisfiable
 {
@@ -11,8 +12,8 @@ namespace Class.GameSystem.Satisfiable
         [SerializeField] [OnValueChanged(nameof(Check))]
         private ConditionCheckEnumType conditionCheckEnumType;
 
-        [SerializeField] [OnValueChanged(nameof(Check))]
-        T targetType;
+        [FormerlySerializedAs("targetType")] [SerializeField] [OnValueChanged(nameof(Check))]
+        T target;
 
         [SerializeField] [OnValueChanged(nameof(Check))]
         private float currentValue;
@@ -28,7 +29,6 @@ namespace Class.GameSystem.Satisfiable
 
         public UnityEvent<VariableCondition<T>> onSatisfied;
         public UnityEvent<VariableCondition<T>> onUnSatisfied;
-        public UnityEvent<VariableCondition<T>> onTargetChanged;
         public UnityEvent<VariableCondition<T>> onValueChanged;
         public UnityEvent<VariableCondition<T>> onConditionTypeChanged;
 
@@ -40,7 +40,6 @@ namespace Class.GameSystem.Satisfiable
         {
             onSatisfied = new UnityEvent<VariableCondition<T>>();
             onUnSatisfied = new UnityEvent<VariableCondition<T>>();
-            onTargetChanged = new UnityEvent<VariableCondition<T>>();
             onValueChanged = new UnityEvent<VariableCondition<T>>();
             onConditionTypeChanged = new UnityEvent<VariableCondition<T>>();
 
@@ -66,12 +65,12 @@ namespace Class.GameSystem.Satisfiable
             }
         }
 
-        public T TargetType
+        public T Target
         {
-            get => targetType;
+            get => target;
             set
             {
-                targetType = value;
+                target = value;
                 onValueChanged?.Invoke(this);
             }
         }

@@ -3,7 +3,7 @@
     public interface IVariableCondition<T>
     {
         ConditionCheckEnumType ConditionCheckEnumType { get; set; }
-        T TargetType { get; set; }
+        T Target { get; set; }
         float CurrentValue { get; set; }
         float MinValue { get; set; }
         float MaxValue { get; set; }

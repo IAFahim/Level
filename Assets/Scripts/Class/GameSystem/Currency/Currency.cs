@@ -36,7 +36,7 @@ namespace Class.GameSystem.Currency
 
         public void SetTargetAsKey()
         {
-            key = target.ToString();
+            Key = target.ToString();
         }
     }
 }

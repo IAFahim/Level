@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c73758421ebc664ca17b2b53a4b1567, type: 3}
+  m_Name: FIshRed
+  m_EditorClassIdentifier: 
+  collectAble:
+    listener: {fileID: 11400000, guid: 1594e9520143b9a4298a627588ef7002, type: 2}
+    target: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
+    textInfo:
+      key: Fish_1 (UnityEngine.GameObject)
+      name: Red Fish
+      description: 
+    itemCount:
+      conditionCheckEnumType: 0
+      target: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
+      currentValue: 3
+      minValue: 0
+      maxValue: 0
+      isSatisfied: 0
+      onSatisfied:
+        m_PersistentCalls:
+          m_Calls: []
+      onUnSatisfied:
+        m_PersistentCalls:
+          m_Calls: []
+      onValueChanged:
+        m_PersistentCalls:
+          m_Calls: []
+      onConditionTypeChanged:
+        m_PersistentCalls:
+          m_Calls: []
