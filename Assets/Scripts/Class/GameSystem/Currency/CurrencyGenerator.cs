@@ -69,11 +69,11 @@ namespace Class.GameSystem.Currency
         [Button]
         public TComparable Generate()
         {
-            return count = RewardFunctionType switch
+            return value = RewardFunctionType switch
             {
-                RewardFunctionType.Min => MinFunc(count, lower, upper),
-                RewardFunctionType.Random => RandomFunc(count, lower, upper),
-                RewardFunctionType.RandomOnCurve => RandomOnCurveFunc(count, lower, upper),
+                RewardFunctionType.Min => MinFunc(value, lower, upper),
+                RewardFunctionType.Random => RandomFunc(value, lower, upper),
+                RewardFunctionType.RandomOnCurve => RandomOnCurveFunc(value, lower, upper),
                 RewardFunctionType.Custom => CustomRewardFunction(this),
                 _ => default
             };
@@ -81,12 +81,12 @@ namespace Class.GameSystem.Currency
 
         public static implicit operator float(CurrencyGenerator<T, TComparable> currencyGenerator)
         {
-            return Convert.ToSingle(currencyGenerator.count);
+            return Convert.ToSingle(currencyGenerator.value);
         }
 
         public static implicit operator int(CurrencyGenerator<T, TComparable> currencyGenerator)
         {
-            return Convert.ToInt32(currencyGenerator.count);
+            return Convert.ToInt32(currencyGenerator.value);
         }
 
         private TComparable MinFunc(TComparable value, TComparable lowerBound, TComparable upperBound)
@@ -158,7 +158,7 @@ namespace Class.GameSystem.Currency
 
         public override string ToString()
         {
-            return $"{Target} {Count} {Lower} {Upper} {RewardFunctionType}";
+            return $"{Target} {value} {Lower} {Upper} {RewardFunctionType}";
         }
     }
 }

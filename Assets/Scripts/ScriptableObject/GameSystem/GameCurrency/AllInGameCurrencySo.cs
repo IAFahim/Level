@@ -1,7 +1,6 @@
 ﻿using Class.GameSystem.Currency;
 using TriInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ScriptableObject.GameSystem.GameCurrency
 {
@@ -19,7 +18,7 @@ namespace ScriptableObject.GameSystem.GameCurrency
         
         private void OnValidate()
         {
-            currency.SetTargetAsKey();
+            currency.SetAskKey();
         }
     }
 }

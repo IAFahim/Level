@@ -4,16 +4,19 @@ using Class.GameSystem.Mission;
 using Class.GameSystem.Satisfiable;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Interaction
 {
     [Serializable]
     public class CollectAble<T> : ICollectAble<T>
     {
-        [SerializeField] private TempCollectionListenerSo listener;
+        [SerializeField] [DisableInEditMode] protected string key;
+        [SerializeField] private CollectionListenerSo collectorSo;
         [OnValueChanged(nameof(SetTargetNameAsKeySetItemTarget))]public T target;
         public TextInfo textInfo;
         public VariableCondition<T> itemCount;
+        
 
         public T Target
         {
@@ -21,11 +24,17 @@ namespace Class.GameSystem.Interaction
             set => target = value;
         }
         
+        public string Key => key;
+        
+        public void SetAskKey()
+        {
+            this.key = target.ToString();
+        }
+        
         private void SetTargetNameAsKeySetItemTarget()
         {
-            textInfo.Key = target.ToString();
+            SetAskKey();
             itemCount.Target = target;
-            
         }
 
         public TextInfo TextInfo
@@ -44,7 +53,7 @@ namespace Class.GameSystem.Interaction
         [Button]
         public void Collect()
         {
-            listener.collectionListener?.Increment(this);
+            collectorSo.collector?.Increment(this);
             itemCount.CurrentValue++;
         }
     }

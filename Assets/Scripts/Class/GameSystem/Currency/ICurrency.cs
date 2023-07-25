@@ -1,12 +1,11 @@
 ﻿using System;
-using Class.GameSystem.Info;
 
 namespace Class.GameSystem.Currency
 {
-    public interface ICurrency<T, out TComparable> 
+    public interface ICurrency<T, TComparable> 
         where TComparable : struct, IComparable<TComparable>
     {
         public T Target { get; set; }
-        TComparable Count { get; }
+        TComparable Value { get; set; }
     }
 }

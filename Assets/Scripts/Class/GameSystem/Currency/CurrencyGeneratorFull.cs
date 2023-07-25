@@ -29,12 +29,12 @@ namespace Class.GameSystem.Currency
             if (index < currency.Count) return currency[index];
             return default;
         }
-        
+
 
         public void Set(object type, TComparable value)
         {
             int index = (int)type;
-            if (index < currency.Count) currency[index].Count = value;
+            if (index < currency.Count) currency[index].Value = value;
         }
 
         public int GetLength()

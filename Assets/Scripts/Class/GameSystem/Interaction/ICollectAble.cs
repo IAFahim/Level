@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using Class.GameSystem.Info;
 using Class.GameSystem.Satisfiable;
 using TextInfo = Class.GameSystem.Info.TextInfo;
 

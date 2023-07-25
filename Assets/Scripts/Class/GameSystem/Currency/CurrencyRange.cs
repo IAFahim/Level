@@ -9,7 +9,7 @@ namespace Class.GameSystem.Currency
         where T : System.Enum
         where TComparable : struct, IComparable<TComparable>
     {
-        public CurrencyRange(T type, TComparable count) : base(type, count)
+        public CurrencyRange(T type, TComparable value) : base(type, value)
         {
         }
 

@@ -3,31 +3,31 @@ using UnityEngine;
 
 namespace Class.GameSystem.Currency
 {
+    [Serializable]
     public class BaseCurrency<T,TComparable>: ICurrency<T,TComparable> where TComparable : struct, IComparable<TComparable>
     {
         [SerializeField]
         protected T target;
 
         [SerializeField]
-        protected TComparable count;
+        protected TComparable value;
 
-
+        public BaseCurrency(T type, TComparable value)
+        {
+            this.target = type;
+            this.value = value;
+        }
+        
         public T Target
         {
             get => target;
             set => target = value;
         }
 
-        public TComparable Count
+        public TComparable Value
         {
-            get => count;
-            set => count = value;
-        }
-
-        public BaseCurrency(T type, TComparable count)
-        {
-            this.target = type;
-            this.count = count;
+            get => value;
+            set => this.value = value;
         }
     }
 }

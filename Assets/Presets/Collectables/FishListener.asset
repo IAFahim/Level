@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c42d54f35f48b695258f4d6545c83e, type: 3}
   m_Name: FishListener
   m_EditorClassIdentifier: 
-  collectionListener:
+  collector:
+    key: FishHistory
     textInfo:
-      key: 
       name: 
       description: 
-    collectionNames: []
+    list:
+    - key: Fish_1 (UnityEngine.GameObject)
+      count: 19

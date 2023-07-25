@@ -25,12 +25,15 @@ namespace UnityEngine.UI.Extensions.Examples.FancyScrollViewExample01
         {
             currentPosition = position;
 
-            if (animator.isActiveAndEnabled)
+            if (animator != null)
             {
-                animator.Play(AnimatorHash.Scroll, -1, position);
-            }
+                if (animator.isActiveAndEnabled)
+                {
+                    animator.Play(AnimatorHash.Scroll, -1, position);
+                }
 
-            animator.speed = 0;
+                animator.speed = 0;
+            }
         }
 
         // GameObject が非アクティブになると Animator がリセットされてしまうため

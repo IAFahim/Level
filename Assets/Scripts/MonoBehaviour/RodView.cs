@@ -33,5 +33,7 @@ namespace MonoBehaviour
             textMeshPro.text = item.uiInfo.Name;
             rodIcon.sprite = item.uiInfo.Icon;
         }
+        
+        
     }
 }

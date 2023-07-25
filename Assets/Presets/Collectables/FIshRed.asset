@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: FIshRed
   m_EditorClassIdentifier: 
   collectAble:
-    listener: {fileID: 11400000, guid: 1594e9520143b9a4298a627588ef7002, type: 2}
+    key: Fish_1 (UnityEngine.GameObject)
+    collectorSo: {fileID: 11400000, guid: 1594e9520143b9a4298a627588ef7002, type: 2}
     target: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
     textInfo:
-      key: Fish_1 (UnityEngine.GameObject)
       name: Red Fish
       description: 
     itemCount:
       conditionCheckEnumType: 0
       target: {fileID: 1494824262164822385, guid: ff5e8b377b9878d4798ceafa4f0b163d, type: 3}
-      currentValue: 3
+      currentValue: 73
       minValue: 0
       maxValue: 0
       isSatisfied: 0

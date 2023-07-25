@@ -2,19 +2,27 @@
 using Class.GameSystem.Info;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Currency
 {
     [Serializable]
-    public class Currency<T, TComparable> : UiInfo, ICurrency<T, TComparable>
+    public class Currency<T, TComparable> : UiInfo, ICurrency<T, TComparable>, IKey
         where TComparable : struct, IComparable<TComparable>
     {
-        [OnValueChanged(nameof(SetTargetAsKey))] [SerializeField]
+        [SerializeField] [DisableInEditMode] protected string key;
+        [OnValueChanged(nameof(SetAskKey))] [SerializeField]
         protected T target;
 
-        [SerializeField]
-        protected TComparable count;
-
+        [FormerlySerializedAs("count")] [SerializeField]
+        protected TComparable value;
+        
+        public string Key => key;
+        
+        public void SetAskKey()
+        {
+            this.key = key;
+        }
 
         public T Target
         {
@@ -22,21 +30,18 @@ namespace Class.GameSystem.Currency
             set => target = value;
         }
 
-        public TComparable Count
+        public TComparable Value
         {
-            get => count;
-            set => count = value;
+            get => value;
+            set => this.value = value;
         }
 
-        public Currency(T type, TComparable count)
+        public Currency(T type, TComparable value)
         {
             this.target = type;
-            this.count = count;
+            this.value = value;
         }
 
-        public void SetTargetAsKey()
-        {
-            Key = target.ToString();
-        }
+        
     }
 }
