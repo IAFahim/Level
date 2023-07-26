@@ -1,0 +1,19 @@
+{
+    "name": "GameSystemBM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:324caed91501a9c47a04ebfd87b68794",
+        "GUID:faf01839a36caa1418675c19673674d4",
+        "GUID:ce3000793bc7e6e42b8aba7a078ac42c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
