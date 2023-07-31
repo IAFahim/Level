@@ -1,6 +1,8 @@
-﻿namespace Class.Stats
+﻿using Class.Interaction;
+
+namespace Class.Stats
 {
-    public interface IDurability
+    public interface IDurability: ICheckAble
     {
         public float CurrentDurability { get; set; }
         public float MaxDurability { get; set; }

@@ -4,6 +4,7 @@ using Class.Interaction;
 using Class.Stats;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Class.GameSystem.Item
 {
@@ -15,7 +16,7 @@ namespace Class.GameSystem.Item
         [SerializeField] protected TObject gameObject;
 
         public UiInfo uiInfo;
-        public UnlockRequirement<float> unlockRequirement;
+        [FormerlySerializedAs("unlockRequirement")] public Locked<float> locked;
         public Durability durability;
     }
 }
